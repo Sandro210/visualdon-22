@@ -10,42 +10,59 @@ const svg = d3.select("body")
             .attr("id", "svg")
             .attr("width", WIDTH)
             .attr("height", HEIGHT)
-            .append("circle")
+                    
+
+const circle1 = d3.select("#svg")
+                .append("g")   
+                .append("circle")
                 .attr("cx", "100")
                 .attr("cy", "50")
                 .attr("r", "40")
-                .attr("fill", "red")
-            .append("p")
-                .attr("margin", "100")
-                .attr("padding", "75")
-
-                
+                .attr("fill", "red")    
 
 const circle2 = d3.select("#svg")
+                .append("g")
                 .append("circle")
                 .attr("cx", "200")
                 .attr("cy", "150")
                 .attr("r", "40")
                 .attr("fill", "blue")
-                .append("p");
+                
 
 const circle3 = d3.select("#svg")
+                .append("g")
                 .append("circle")
                 .attr("id", "dernier")
                 .attr("cx", "250")
                 .attr("cy", "250")
                 .attr("r", "40")
                 .attr("fill", "red")
-                circle3.on("click", () =>{
-                    circle3.attr("fill", "blue");
+                circle3.on("click", event =>{
+                    event.attr("fill", "blue");
                 });
 
-
-
-const cercle = document.querySelectorAll("p");
-cercle.forEach(element => {
-    element.append(texte);
+const cercleTab = [circle1, circle2, circle3];
+circle3.on("click", ()=>{
+    cercleTab.forEach(circle =>{
+        circle.attr("cx", 100)
+    })
 })
+
+
+const groups = d3.selectAll("g");
+groups.each(function (){
+    const circle = d3.select(this).select("circle");
+    const x = parseInt(circle.attr("cx"));
+    const y = parseInt(circle.attr("cy"));
+    const r = parseInt(circle.attr("r"));
+    const text = "Hello world";
+    d3.select(this)
+            .append("text")
+            .attr("x", x)
+            .attr("y", y + r + 15)
+            .text(text)
+})
+
 
 
 
